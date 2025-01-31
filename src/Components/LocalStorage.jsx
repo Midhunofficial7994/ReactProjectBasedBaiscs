@@ -54,6 +54,11 @@ const LocalStorage = () => {
           <Button variant="primary">MultiForm</Button>
         </Link>
       </Row>
+      <Row className="justify-content-center my-3">
+        <Link to="/format">
+          <Button variant="primary">Format</Button>
+        </Link>
+      </Row>
 
       <TaskForm handleAddTask={handleAddTask} tasks={tasks} />
 
