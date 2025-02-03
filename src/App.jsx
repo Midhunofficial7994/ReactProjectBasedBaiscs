@@ -9,31 +9,38 @@ import SwrPagination from "./Components/SwrPagination";
 import FormValidation from "./Components/FormValidation";
 import Informed from "./Informed/Informed";
 import UrlSearch from "./UrlConnection/UrlSearch";
-import './InformedComponents/i18.js'
+import "./InformedComponents/i18.js";
 // import "./App.css";
-import MultiForm from './MultiStepForm./MultiForm.jsx'
+import MultiForm from "./MultiStepForm./MultiForm.jsx";
 import FormatForm from "./FormatForm.js/Form.jsx";
-
+import CountryList from "./GraphqlAppoloCLient/CountryList.jsx";
+import { ApolloProvider } from "@apollo/client";
+import client from "./GraphqlAppoloCLient/apolloCLient.js";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Navigate to="/localStorage" />} />
-        <Route path="/localStorage" element={<LocalStorage />} />
-        <Route path="/database" element={<Database />} />
-        <Route path="/paginationStep/:page" element={<PaginationButton />} />
-        <Route path="/paginationScroll" element={<PagNationScroll />} />
-        <Route path="/paginationScroll" element={<SwrPagination />} />
-        <Route path="/formValidation" element={<FormValidation />} />
-        <Route path="/formValidationInformed" element={<Informed/>} />
-        <Route path="/urlSearch" element={<UrlSearch/>} />
-        <Route path="/multi" element={<MultiForm/>} />
-        <Route path="/format" element={<FormatForm/>} />
-      </Routes>
-    </BrowserRouter>  
+    // <BrowserRouter>
+    //   <Routes>
+    //     <Route path="/" element={<Navigate to="/localStorage" />} />
+    //     <Route path="/localStorage" element={<LocalStorage />} />
+    //     <Route path="/database" element={<Database />} />
+    //     <Route path="/paginationStep/:page" element={<PaginationButton />} />
+    //     <Route path="/paginationScroll" element={<PagNationScroll />} />
+    //     <Route path="/paginationScroll" element={<SwrPagination />} />
+    //     <Route path="/formValidation" element={<FormValidation />} />
+    //     <Route path="/formValidationInformed" element={<Informed/>} />
+    //     <Route path="/urlSearch" element={<UrlSearch/>} />
+    //     <Route path="/multi" element={<MultiForm/>} />
+    //     <Route path="/format" element={<FormatForm/>} />
+    //   </Routes>
+    // </BrowserRouter>
+    <div>
+      {" "}
+      <ApolloProvider client={client}>
+        <CountryList />
+      </ApolloProvider>
+    </div>
   );
 }
 
-export default App;              
-                               
+export default App;

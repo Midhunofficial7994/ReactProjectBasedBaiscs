@@ -19,14 +19,15 @@ i18n.use(initReactI18next).init({
         selectCountry: "Select Country",
         selectState: "Select State",
         optionalMessage: "Optional Message",
-        // Validation messages
+
         fileError: "File size exceeds 500KB. Please upload a smaller file.",
         nameError: "Only letters and spaces are allowed.",
         pincodeError: "Please enter a valid 6-digit pincode.",
-        phoneError: "Invalid phone number. Please use the format +91 ###-###-####.",
+        phoneError:
+          "Invalid phone number. Please use the format +91 ###-###-####.",
         stateRequired: "State is required.",
         nameRequired: "Name Required",
-        formTitle: "Form Validation Informed"
+        formTitle: "Form Validation Informed",
       },
     },
     hi: {
@@ -45,14 +46,16 @@ i18n.use(initReactI18next).init({
         selectCountry: "देश चुनें",
         selectState: "राज्य चुनें",
         optionalMessage: "वैकल्पिक संदेश",
-        // Validation messages
-        fileError: "फ़ाइल आकार 500KB से अधिक है। कृपया एक छोटा फ़ाइल अपलोड करें।",
+
+        fileError:
+          "फ़ाइल आकार 500KB से अधिक है। कृपया एक छोटा फ़ाइल अपलोड करें।",
         nameError: "केवल अक्षरों और स्थानों की अनुमति है।",
         pincodeError: "कृपया एक वैध 6-अंकीय पिनकोड दर्ज करें।",
-        phoneError: "अमान्य फ़ोन नंबर। कृपया फ़ॉर्मेट +91 ###-###-#### का पालन करें।",
+        phoneError:
+          "अमान्य फ़ोन नंबर। कृपया फ़ॉर्मेट +91 ###-###-#### का पालन करें।",
         stateRequired: "राज्य आवश्यक है।",
         nameRequired: "नाम आवश्यक है",
-        formTitle: "फ़ॉर्म सत्यापन सूचित"
+        formTitle: "फ़ॉर्म सत्यापन सूचित",
       },
     },
     ta: {
@@ -71,14 +74,17 @@ i18n.use(initReactI18next).init({
         selectCountry: "நாட்டை தேர்வு செய்க",
         selectState: "மாநிலத்தை தேர்வு செய்க",
         optionalMessage: "விருப்ப செய்தி",
-        // Validation messages
-        fileError: "கோப்பு அளவு 500KB ஐ கடந்துவிட்டது. சிறிய கோப்பை பதிவேற்றவும்.",
-        nameError: "எழுத்துகள் மற்றும் இடைவெளிகள் மட்டுமே அனுமதிக்கப்பட்டுள்ளன.",
+
+        fileError:
+          "கோப்பு அளவு 500KB ஐ கடந்துவிட்டது. சிறிய கோப்பை பதிவேற்றவும்.",
+        nameError:
+          "எழுத்துகள் மற்றும் இடைவெளிகள் மட்டுமே அனுமதிக்கப்பட்டுள்ளன.",
         pincodeError: "சரியான 6 எண் பின்கோடு உள்ளதை உறுதிப்படுத்தவும்.",
-        phoneError: "செல்லுபடியாகாத தொலைபேசி எண். +91 ###-###-#### வடிவத்தில் பயன்படுத்தவும்.",
+        phoneError:
+          "செல்லுபடியாகாத தொலைபேசி எண். +91 ###-###-#### வடிவத்தில் பயன்படுத்தவும்.",
         stateRequired: "மாநிலம் தேவை.",
         nameRequired: "பெயர் தேவை",
-        formTitle: "படிவம் செல்லுபடியானது"
+        formTitle: "படிவம் செல்லுபடியானது",
       },
     },
     ml: {
@@ -97,18 +103,20 @@ i18n.use(initReactI18next).init({
         selectCountry: "രാജ്യം തിരഞ്ഞെടുക്കുക",
         selectState: "സംസ്ഥാനം തിരഞ്ഞെടുക്കുക",
         optionalMessage: "ഐച്ഛിക സന്ദേശം",
-        // Validation messages
-        fileError: "ഫയല് സൈസ് 500KB-നെ കവ exceeds. ദയവായി ചെറിയ ഫയല് അപ്‌ലോഡ് ചെയ്യുക.",
+
+        fileError:
+          "ഫയല് സൈസ് 500KB-നെ കവ exceeds. ദയവായി ചെറിയ ഫയല് അപ്‌ലോഡ് ചെയ്യുക.",
         nameError: "പേര്‍മാത്രം കൂടാതെ ശൂന്യങ്ങളും അനുവദനീയമാണ്.",
         pincodeError: "ദയവായി ഒരു സാധുവായ 6-അംഗ പിൻകോഡ് നൽകുക.",
-        phoneError: "അസാധുവായ ഫോൺ നമ്പർ. ദയവായി +91 ###-###-#### എന്ന ഫോർമാറ്റ് ഉപയോപ്രിക്കുക.",
+        phoneError:
+          "അസാധുവായ ഫോൺ നമ്പർ. ദയവായി +91 ###-###-#### എന്ന ഫോർമാറ്റ് ഉപയോപ്രിക്കുക.",
         stateRequired: "സംസ്ഥാനം ആവശ്യമാണ്.",
         nameRequired: "പേര് ആവശ്യമാണ്",
-        formTitle: "ഫോം വാലിഡേഷൻ ഇൻഫോർമഡ്"
+        formTitle: "ഫോം വാലിഡേഷൻ ഇൻഫോർമഡ്",
       },
     },
   },
-  lng: "en", 
+  lng: "en",
   fallbackLng: "en",
   interpolation: {
     escapeValue: false,

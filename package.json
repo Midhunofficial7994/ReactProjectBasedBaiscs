@@ -10,8 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@apollo/client": "^3.12.8",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
+    "graphql": "^16.10.0",
     "i18next": "^24.2.2",
     "informed": "^4.61.1",
     "informer": "^1.0.1",
