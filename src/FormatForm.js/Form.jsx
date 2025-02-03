@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { IntlProvider, FormattedMessage, useIntl } from "react-intl";
 import { messages } from "./messages";
 
-
 function FormatForm() {
   const [language, setLanguage] = useState("en");
   const handleLanguageChange = (event) => {
@@ -11,7 +10,7 @@ function FormatForm() {
 
   return (
     <IntlProvider locale={language} messages={messages[language]}>
-      <div className="App">
+      <div className="App"> 
         <div className="language-selector">
           <select onChange={handleLanguageChange} value={language}>
             <option value="en">English</option>
@@ -25,17 +24,19 @@ function FormatForm() {
 }
 
 function Form() {
-  const { formatMessage } = useIntl(); 
-  return (    
+  const { formatMessage } = useIntl();
+  return (             
     <div className="form-container">
-      <h1><FormattedMessage id="firstName" defaultMessage="First Name" /></h1>
+       <h1>
+        <FormattedMessage id="firstName" defaultMessage="First Name" />
+      </h1>
       <form>
         <div className="form-group">
           <label htmlFor="firstName">
             {formatMessage({ id: "firstName", defaultMessage: "First Name" })}
           </label>
           <input type="text" id="firstName" name="firstName" />
-        </div>
+        </div>    
 
         <div className="form-group">
           <label htmlFor="lastName">
@@ -53,14 +54,14 @@ function Form() {
 
         <div className="form-group">
           <label htmlFor="city">
-            {formatMessage({ id: "city", defaultMessage: "City" })}
+            {formatMessage({ id: "city", defaultMessage: "City" })}   
           </label>
           <input type="text" id="city" name="city" />
         </div>
 
         <div className="form-group">
           <label htmlFor="pincode">
-            {formatMessage({ id: "pincode", defaultMessage: "Pincode" })}
+            {formatMessage({ id: "pincode", defaultMessage: "Pincode" })}                                                        
           </label>
           <input type="text" id="pincode" name="pincode" />
         </div>
@@ -74,7 +75,10 @@ function Form() {
 
         <div className="form-group">
           <label htmlFor="country">
-            {formatMessage({ id: "selectCountry", defaultMessage: "Select Country" })}
+            {formatMessage({
+              id: "selectCountry",
+              defaultMessage: "Select Country",
+            })}
           </label>
           <select id="country" name="country">
             <option value="us">USA</option>
@@ -85,7 +89,10 @@ function Form() {
 
         <div className="form-group">
           <label htmlFor="state">
-            {formatMessage({ id: "selectState", defaultMessage: "Select State" })}
+            {formatMessage({
+              id: "selectState",
+              defaultMessage: "Select State",
+            })}
           </label>
           <select id="state" name="state">
             <option value="california">California</option>
@@ -95,14 +102,20 @@ function Form() {
 
         <div className="form-group">
           <label htmlFor="preferences">
-            {formatMessage({ id: "preferences", defaultMessage: "Preferences" })}
+            {formatMessage({
+              id: "preferences",
+              defaultMessage: "Preferences",
+            })}
           </label>
           <input type="text" id="preferences" name="preferences" />
         </div>
 
         <div className="form-group">
           <label htmlFor="photo">
-            {formatMessage({ id: "uploadPhoto", defaultMessage: "Upload your photo" })}
+            {formatMessage({
+              id: "uploadPhoto",
+              defaultMessage: "Upload your photo",
+            })}
           </label>
           <input type="file" id="photo" name="photo" />
         </div>
