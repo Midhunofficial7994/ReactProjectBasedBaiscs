@@ -75,7 +75,7 @@ function Form() {
 
         <div className="form-group">
           <label htmlFor="country">
-            {formatMessage({
+            {formatMessage({    
               id: "selectCountry",
               defaultMessage: "Select Country",
             })}
