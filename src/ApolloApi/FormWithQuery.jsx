@@ -16,7 +16,7 @@ const formatPhone = (phone) => {
 
 const ContactForm = () => {
   const [file, setFile] = useState(null); // To store uploaded file
-  const { formState, setValue } = useForm();
+
 
   // Handle file input change
   const handleFileChange = (e) => {
