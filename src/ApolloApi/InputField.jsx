@@ -1,30 +1,31 @@
 import { useField } from "informed";
 
-const InputField = ({ label, id, type, validate, ...rest }) => {
-  const { fieldState, fieldApi, render, ref } = useField({ field: rest.field, validate });
-
+const InputField = ({ label, id, type, validate, name, ...rest }) => {
+    // 'name' is now required as part of the props
+    const { fieldState, fieldApi, render, ref } = useField({ field: name, validate });
+  
   const { value, error, showError } = fieldState;
   const { setValue, setTouched, setError } = fieldApi;
 
   const handleChange = (e) => {
     let newValue = e.target.value;
 
-    // Handling specific input types (e.g., phone)
     if (type === "tel") {
       newValue = newValue.replace(/[^\d\+]/g, '');  
     }
 
     setValue(newValue, e);
 
-    // Validate the input
+
     if (validate) {
       const validationError = validate(newValue);
       if (validationError) {
-        setError(validationError);
+        setError(validationError);  
       } else {
-        setError(""); 
+        setError("");  
       }
     }
+
 
     if (showError) {
       setError(""); 
