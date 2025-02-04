@@ -10,12 +10,9 @@ import FormValidation from "./Components/FormValidation";
 import Informed from "./Informed/Informed";
 import UrlSearch from "./UrlConnection/UrlSearch";
 import "./InformedComponents/i18.js";
-// import "./App.css";
-import MultiForm from "./MultiStepForm./MultiForm.jsx";
-import FormatForm from "./FormatForm.js/Form.jsx";
-import CountryList from "./GraphqlAppoloCLient/CountryList.jsx";
 import { ApolloProvider } from "@apollo/client";
 import client from "./GraphqlAppoloCLient/apolloCLient.js";
+import FormWithQuery from "./ApolloApi/FormWithQuery.jsx";
 
 function App() {
   return (
@@ -37,7 +34,7 @@ function App() {
     <div>
       {" "}
       <ApolloProvider client={client}>
-        <CountryList />
+       <FormWithQuery/>
       </ApolloProvider>
     </div>
   );
