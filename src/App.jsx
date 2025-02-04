@@ -11,7 +11,7 @@ import Informed from "./Informed/Informed";
 import UrlSearch from "./UrlConnection/UrlSearch";
 import "./InformedComponents/i18.js";
 import { ApolloProvider } from "@apollo/client";
-import client from "./GraphqlAppoloCLient/apolloCLient.js";
+import client from "./ApolloApi/apolloClient.js";
 import FormWithQuery from "./ApolloApi/FormWithQuery.jsx";
 
 function App() {

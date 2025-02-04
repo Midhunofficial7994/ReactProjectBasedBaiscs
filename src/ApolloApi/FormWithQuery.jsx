@@ -1,84 +1,116 @@
-// src/components/FormWithQuery.js
 import React, { useState } from 'react';
-import { useQuery, gql, useMutation } from '@apollo/client';
+import { Form, useForm } from 'informed';
+import { Card } from 'react-bootstrap';
+import InputField from './InputField';  // Import the custom InputField component
 
-// Define the GraphQL query
-const GET_CMS_DATA = gql`
-  query measureYourSpace {
-    MeasureYourSpacePageCms {
-      content
-      content_type
-      footer_html_block
-      header_html_block
-      meta_description
-      meta_keywords
-      meta_title
-      title
-    }
+// Utility function to format the phone number
+const formatPhone = (phone) => {
+  // Simple phone formatting logic (example format: (XXX) XXX-XXXX)
+  const cleaned = ('' + phone).replace(/\D/g, '');
+  const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+  if (match) {
+    return `(${match[1]}) ${match[2]}-${match[3]}`;
   }
-`;
+  return phone;
+};
 
-// Define a mutation for updating data (if needed)
-const UPDATE_CMS_DATA = gql`
-  mutation UpdateCmsData($content: String!) {
-    updateCmsData(content: $content) {
-      content
-    }
-  }
-`;
+const ContactForm = () => {
+  const [file, setFile] = useState(null); // To store uploaded file
+  const { formState, setValue } = useForm();
 
-const FormWithQuery = () => {
-  // Fetch CMS data
-  const { loading, error, data } = useQuery(GET_CMS_DATA);
+  // Handle file input change
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+  };
 
-  // Setup mutation for updating CMS data
-  const [updateCmsData] = useMutation(UPDATE_CMS_DATA);
+  // Handle form submission
+  const handleSubmit = (values) => {
+    const formattedPhone = formatPhone(values.mobile); // Format the phone number
 
-  const [content, setContent] = useState('');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      await updateCmsData({
-        variables: { content }, // Send the updated content to the mutation
-      });
-      alert('CMS Data Updated');
-    } catch (err) {
-      console.error('Error updating CMS data', err);
+    // Log the form data with phone formatting and file handling
+    if (file) {
+      console.log("Form submitted:", { ...values, mobile: formattedPhone, uploadedFile: file });
+    } else {
+      console.log("Form submitted with no file:", { ...values, mobile: formattedPhone });
     }
   };
 
-  // Handle loading and error states
-  if (loading) return <p>Loading CMS data...</p>;
-  if (error) return <p>Error fetching CMS data: {error.message}</p>;
-
   return (
-    <div>
-      <h1>CMS Form</h1>
+    <Card className="mb-4">
+      <Card.Body>
+        <Card.Title>Contact Us</Card.Title>
+        <Form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <InputField
+              label="First Name"
+              field="firstName"
+              type="text"
+              validate={(value) => !value && 'First name is required'}
+            />
+          </div>
 
-      {/* Display fetched CMS data */}
-      <h3>{data.MeasureYourSpacePageCms.title}</h3>
-      <p>{data.MeasureYourSpacePageCms.meta_description}</p>
+          <div className="mb-3">
+            <InputField
+              label="Last Name"
+              field="lastName"
+              type="text"
+            />
+          </div>
 
-      {/* The form to edit CMS content */}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="content">Content</label>
-          <textarea
-            id="content"
-            name="content"
-            value={content || data.MeasureYourSpacePageCms.content}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="Edit content here"
-            rows="6"
-            cols="50"
-          />
-        </div>
-        <button type="submit">Update Content</button>
-      </form>
-    </div>
+          <div className="mb-3">
+            <InputField
+              label="Email"
+              field="email"
+              type="email"
+              validate={(value) => !value && 'Email is required'}
+            />
+          </div>
+
+          <div className="mb-3">
+            <InputField
+              label="Mobile"
+              field="mobile"
+              type="tel"
+              validate={(value) => !value && 'Mobile number is required'}
+            />
+          </div>
+
+          <div className="mb-3">
+            <InputField
+              label="Order Number"
+              field="orderNumber"
+              type="text"
+            />
+          </div>
+
+          <div className="mb-3">
+            <InputField
+              label="Message"
+              field="message"
+              type="text"
+              validate={(value) => !value && 'Message is required'}
+            />
+          </div>
+
+          {/* File Upload Input */}
+          <div className="mb-3">
+            <label htmlFor="file-upload">Upload File</label>
+            <input
+              type="file"
+              id="file-upload"
+              onChange={handleFileChange}
+              className="form-control"
+            />
+          </div>
+
+          <div className="d-grid">
+            <button type="submit" className="btn btn-primary">Submit</button>
+          </div>
+        </Form>
+      </Card.Body>
+    </Card>
   );
 };
 
-export default FormWithQuery;
+export default ContactForm;
