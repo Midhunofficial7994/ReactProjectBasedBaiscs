@@ -1,9 +1,13 @@
 import React from 'react';
 import { useQuery, useMutation, gql } from '@apollo/client';
-import { Container, Row, Col, Card, Alert } from 'react-bootstrap';
-import { Form as InformedForm } from 'informed';
-import InputField from './InputField';
-import { CONTACT_US_MUTATION } from './Mutation';
+import { Container, Row, Col } from 'react-bootstrap';
+import { Form } from 'informed';
+import { useTranslation } from 'react-i18next';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { validateEmail, validateMobile, validateRequired } from './validateRequired';
+import FormField from './FormField';
+import ContentCard from './ContentCard';
 
 const GET_CONTACT_PAGE = gql`
   query GetContactPage {
@@ -34,198 +38,145 @@ const GET_CONTACT_PAGE = gql`
   }
 `;
 
+const SUBMIT_CONTACT_FORM = gql`
+  mutation SubmitContactForm(
+    $request_type: String!
+    $email: String!
+    $name: String!
+    $telephone: String!
+    $orderNumber: String
+    $comment: String!
+    $productSku: String!
+  ) {
+    submitContactForm(
+      input: {
+        request_type: $request_type
+        email: $email
+        name: $name
+        telephone: $telephone
+        order_number: $orderNumber
+        comment: $comment
+        product_sku: $productSku
+      }
+    )
+  }
+`;
+
+const ContactForm = () => {
+  const { t } = useTranslation();
+  const [submitForm, { loading: submitting }] = useMutation(SUBMIT_CONTACT_FORM, {
+    onCompleted: (data) => {
+      if (data.submitContactForm) {
+        toast.success('Form submitted successfully!', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      } else {
+        toast.error('Something went wrong. Please try again.', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      }
+    },
+    onError: (error) => {
+      toast.error(`Enter values properly`, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    }
+  });
+
+
+  async function handleFormSubmit(formApi,formState){
+    const{values}  = formState
+    await submitForm({
+        variables: {
+          request_type: "general_inquiry", 
+          email: values.email,
+          name: values.name,
+          telephone: values.telephone,
+          orderNumber: values.orderNumber || "", 
+          comment: values.comment,
+          productSku: "DEFAULT_SKU"
+        }
+      });
+
+
+        formApi.reset({});
+    
+
+
+
+    console.log("Vales",values);
+    
+  }
+
+  return (
+    <>
+      <ToastContainer /> 
+      <Form  className="mt-4">
+        {({ formApi, formState }) => (
+          <>
+            <FormField label="Name *" name="name" validate={validateRequired} />
+            <FormField label="Email *" name="email" validate={validateEmail} />
+            <FormField label="Mobile *" name="telephone" validate={validateMobile} />
+            <FormField label="Order Number" name="orderNumber" />
+            <FormField label="Message *" name="comment" validate={validateRequired} type="textarea" rows="4" />
+            {console.log("Form State",formState)}
+
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={formState.submitting || submitting} 
+              onClick={() => handleFormSubmit(formApi, formState)}
+            >
+              {formState.submitting || submitting ? 'Submitting...' : 'Submit'}
+            </button>
+          </>
+        )}
+      </Form>
+    </>
+  );
+};
+
 const Gbody = () => {
-  const { loading, error, data } = useQuery(GET_CONTACT_PAGE); // Query for contact page
-  const [contactUsMutation, { loading: mutationLoading, error: mutationError }] = useMutation(CONTACT_US_MUTATION);
+  const { loading, error, data } = useQuery(GET_CONTACT_PAGE);
 
   if (loading) return <div className="text-center p-5">Loading...</div>;
   if (error) return <div className="text-center p-5">Error: {error.message}</div>;
 
   const { contactUsPage } = data;
 
-  // Render social media links
-  const renderSocialLinks = (socialLinks) => {
-    if (!socialLinks) return null;
-
-    return (
-      <div className="d-flex gap-3">
-        {socialLinks.map((social) => (
-          <a
-            key={social.id}
-            href={social.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-decoration-none"
-            dangerouslySetInnerHTML={{ __html: social.svg_text }}
-          />
-        ))}
-      </div>
-    );
-  };
-
-  // Render different types of content (store, social media)
-  const renderContent = (content) => {
-    switch (content.type) {
-      case 'store':
-        return (
-          <Card key={content.id} className="mb-4">
-            <Card.Body>
-              <Card.Title>{content.name}</Card.Title>
-              <Card.Text>
-                {content.street}<br />
-                {content.city}<br />
-                Phone: <a href={`tel:${content.phone}`}>{content.phone}</a><br />
-                Email: <a href={`mailto:${content.email}`}>{content.email}</a>
-              </Card.Text>
-              {content.link && (
-                <Card.Link href={content.link}>{content.link_label}</Card.Link>
-              )}
-            </Card.Body>
-          </Card>
-        );
-
-      case 'social_media':
-        return (
-          <Card key={content.id} className="mb-4">
-            <Card.Body>
-              <Card.Title>{content.name}</Card.Title>
-              {renderSocialLinks(content.socialLinks)}
-            </Card.Body>
-          </Card>
-        );
-
-      default:
-        return null;
-    }
-  };
-
-  // Generic validation function
-  const validate = (value, type) => {
-    if (!value || typeof value !== 'string' || !value.trim()) return 'This field is required';
-    
-    if (type === 'email') {
-      const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      if (!regex.test(value)) return 'Invalid email address';
-    }
-
-    return undefined;
-  };
-
-  // Handle form submission
-  const handleSubmit = async (values) => {
-    const { firstName, lastName, email, phone, orderNumber, message } = values;
-
-    try {
-      const response = await contactUsMutation({
-        variables: {
-          request_type: 'General Inquiry',
-          email,
-          name: `${firstName} ${lastName}`,
-          telephone: phone,
-          orderNumber,
-          comment: message,
-          productSku: '',
-        },
-      });
-
-      if (response.data.submitContactForm.success) {
-        // You could display a success alert or change state to show a success message
-        alert('Form submitted successfully!');
-      } else {
-        alert('Failed to submit the form: ' + response.data.submitContactForm.message);
-      }
-    } catch (error) {
-      console.error('Mutation error:', error.message);
-      alert('Error submitting the form: ' + error.message);
-    }
-  };
-
   return (
-    <Container className="py-5">
-      <Row>
-        <Col lg={8}>
-          <h1>{contactUsPage.title}</h1>
-          <div dangerouslySetInnerHTML={{ __html: contactUsPage.description }} className="mb-4" />
-
-          <h2 className="mb-4">Contact Information</h2>
-
-          <InformedForm onSubmit={handleSubmit}>
-            {({ formState }) => (
-              <>
-                <Row className="mb-3">
-                  <Col md={6}>
-                    <InputField
-                      label="First Name"
-                      id="firstName"
-                      name="firstName"
-                      type="text"
-                      validate={validate}
-                    />
-                  </Col>
-                  <Col md={6}>
-                    <InputField
-                      label="Last Name"
-                      id="lastName"
-                      name="lastName"
-                      type="text"
-                      validate={validate}
-                    />
-                  </Col>
-                </Row>
-
-                <Row className="mb-3">
-                  <Col md={6}>
-                    <InputField
-                      label="Email"
-                      id="email"
-                      name="email"
-                      type="email"
-                      validate={(value) => validate(value, 'email')}
-                    />
-                  </Col>
-                  <Col md={6}>
-                    <InputField
-                      label="Phone"
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                    />
-                  </Col>
-                </Row>
-
-                <InputField
-                  label="Order Number"
-                  id="orderNumber"
-                  name="orderNumber"
-                  type="text"
-                />
-
-                <InputField
-                  label="Message"
-                  id="message"
-                  name="message"
-                  type="text"
-                  validate={validate}
-                />
-
-                <div className="text-end">
-                  <button type="submit" className="btn btn-primary" disabled={mutationLoading}>
-                    {mutationLoading ? 'Submitting...' : 'Submit'}
-                  </button>
-                </div>
-              </>
-            )}
-          </InformedForm>
-          {mutationError && <Alert variant="danger">{mutationError.message}</Alert>}
-        </Col>
-
-        <Col lg={4}>
-          {contactUsPage.right_side_content.map((content) => renderContent(content))}
-        </Col>
-      </Row>
-    </Container>
+    <div style={{ height: '100vh', overflowY: 'auto' }}>
+      <Container className="py-5">
+        <Row>
+          <Col lg={8}>
+            <h1>{contactUsPage.title}</h1>
+            <div dangerouslySetInnerHTML={{ __html: contactUsPage.description }} className="mb-4" />
+            <ContactForm />
+          </Col>
+          <Col lg={4}>
+            {contactUsPage.right_side_content.map((content) => (
+              <ContentCard key={content.id} content={content} />
+            ))}
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 };
 
 export default Gbody;
-

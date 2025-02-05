@@ -1,6 +1,6 @@
 import { useField } from "informed";
 
-const InputField = ({ label, id, type, validate, name, ...rest }) => {
+const FormField = ({ label, id, type, validate, name, ...rest }) => {
     // 'name' is now required as part of the props
     const { fieldState, fieldApi, render, ref } = useField({ field: name, validate });
   
@@ -57,4 +57,4 @@ const InputField = ({ label, id, type, validate, name, ...rest }) => {
   );
 };
 
-export default InputField;
+export default FormField;

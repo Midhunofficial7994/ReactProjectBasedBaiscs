@@ -1,26 +1,32 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
-const CONTACT_US_MUTATION = gql`
-  mutation contactUsFormMutaion(
-    $request_type: String!,
-    $email: String!,
-    $name: String!,
-    $telephone: String!,
-    $orderNumber: String,
-    $comment: String!,
-    $productSku: String!
-  ) {
-    submitContactForm(input: {
-      request_type: $request_type,
-      email: $email,
-      name: $name,
-      telephone: $telephone,
-      order_number: $orderNumber,
-      comment: $comment,
-      product_sku: $productSku
-    }) {
-      success
-      message
+const GET_CONTACT_PAGE = gql`
+  query GetContactPage {
+    contactUsPage {
+      title
+      description
+      meta_title
+      meta_keywords
+      meta_description
+      right_side_content {
+        type
+        name
+        street
+        city
+        id
+        link
+        link_label
+        phone
+        email
+        socialLinks {
+          id
+          link
+          svg_text
+          title
+        }
+      }
     }
   }
 `;
+
+export default GET_CONTACT_PAGE
