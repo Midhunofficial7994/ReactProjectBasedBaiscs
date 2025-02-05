@@ -13,6 +13,7 @@ import "./InformedComponents/i18.js";
 import { ApolloProvider } from "@apollo/client";
 import client from "./ApolloApi/apolloClient.js";
 import FormWithQuery from "./ApolloApi/FormWithQuery.jsx";
+import Measure from './ApolloApi/Measure.jsx'
 
 function App() {
   return (
@@ -32,9 +33,9 @@ function App() {
     //   </Routes>
     // </BrowserRouter>
     <div>
-      {" "}
+
       <ApolloProvider client={client}>
-       <FormWithQuery/>
+       <Measure/>
       </ApolloProvider>
     </div>
   );

@@ -24,7 +24,7 @@ const GET_CONTACT_PAGE = gql`
         city
         id
         link
-        link_label
+        link_label                
         phone
         email
         socialLinks {
@@ -63,7 +63,7 @@ const SUBMIT_CONTACT_FORM = gql`
 `;
 
 const ContactForm = () => {
-  const { t } = useTranslation();
+
   const [submitForm, { loading: submitting }] = useMutation(SUBMIT_CONTACT_FORM, {
     onCompleted: (data) => {
       if (data.submitContactForm) {
@@ -97,7 +97,7 @@ const ContactForm = () => {
       });
     }
   });
-
+ 
 
   async function handleFormSubmit(formApi,formState){
     const{values}  = formState
@@ -136,7 +136,7 @@ const ContactForm = () => {
             <FormField label="Message *" name="comment" validate={validateRequired} type="textarea" rows="4" />
             {console.log("Form State",formState)}
 
-            <button
+            <button                         
               type="submit"
               className="btn btn-primary"
               disabled={formState.submitting || submitting} 

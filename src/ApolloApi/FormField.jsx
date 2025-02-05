@@ -1,12 +1,12 @@
 import { useField } from "informed";
 
 const FormField = ({ label, id, type, validate, name, ...rest }) => {
-    // 'name' is now required as part of the props
+
     const { fieldState, fieldApi, render, ref } = useField({ field: name, validate });
   
   const { value, error, showError } = fieldState;
   const { setValue, setTouched, setError } = fieldApi;
-
+ 
   const handleChange = (e) => {
     let newValue = e.target.value;
 

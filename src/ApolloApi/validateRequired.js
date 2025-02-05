@@ -11,3 +11,4 @@ export const validateMobile = value => {
   const phoneRegex = /^\d{10}$/;
   return !phoneRegex.test(value) ? 'Invalid mobile number (must be 10 digits)' : undefined;
 };
+
