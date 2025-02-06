@@ -2,7 +2,6 @@ import React from 'react';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Form } from 'informed';
-import { useTranslation } from 'react-i18next';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { validateEmail, validateMobile, validateRequired } from './validateRequired';

@@ -1,6 +1,5 @@
-
-import { useQuery, gql } from '@apollo/client';
-import { Play, ArrowRight } from 'lucide-react';
+import { useQuery, gql } from "@apollo/client";
+import { Play, ArrowRight } from "lucide-react";
 
 const MEASURE_YOUR_SPACE_QUERY = gql`
   query measureYourSpace {
@@ -19,17 +18,19 @@ const MEASURE_YOUR_SPACE_QUERY = gql`
 const Mbody = () => {
   const { data, loading, error } = useQuery(MEASURE_YOUR_SPACE_QUERY);
 
-  if (loading) return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
-    </div>
-  );
-  
-  if (error) return (
-    <div className="flex items-center justify-center min-h-screen text-red-600">
-      Error: {error.message}
-    </div>
-  );
+  if (loading)
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+      </div>
+    );
+
+  if (error)
+    return (
+      <div className="flex items-center justify-center min-h-screen text-red-600">
+        Error: {error.message}
+      </div>
+    );
 
   const contentBlocks = data?.MeasureYourSpacePageCms?.content
     ? JSON.parse(data.MeasureYourSpacePageCms.content)
@@ -37,9 +38,11 @@ const Mbody = () => {
 
   const renderVideoBlock = (block) => (
     <div className="max-w-6xl mx-auto px-4 py-12">
-      <h2 className="text-4xl font-semibold text-center mb-8">{block.text_above_the_image}</h2>
+      <h2 className="text-4xl font-semibold text-center mb-8">
+        {block.text_above_the_image}
+      </h2>
       <div className="relative rounded-xl overflow-hidden shadow-xl">
-        <video 
+        <video
           className="w-full h-full object-cover"
           poster={block.images.desktop}
           controls
@@ -59,15 +62,18 @@ const Mbody = () => {
     <div className="max-w-6xl mx-auto px-4 py-12">
       <div className="grid md:grid-cols-3 gap-8">
         {block.content.map((item, index) => (
-          <div key={item.heading} className="flex flex-col items-center text-center">
+          <div
+            key={item.heading}
+            className="flex flex-col items-center text-center"
+          >
             <div className="relative mb-6 rounded-lg overflow-hidden shadow-lg transform transition-transform hover:scale-105">
-              <img 
-                src={item.image.webp.desktop} 
+              <img
+                src={item.image.webp.desktop}
                 alt={item.heading}
                 className="w-full h-64 object-cover"
               />
               <div className="absolute top-0 left-0 w-12 h-12 bg-black text-white flex items-center justify-center text-xl font-bold">
-                {String(index + 1).padStart(2, '0')}
+                {String(index + 1).padStart(2, "0")}
               </div>
             </div>
             <h3 className="text-xl font-semibold mb-4">{item.heading}</h3>
@@ -80,20 +86,30 @@ const Mbody = () => {
 
   const renderImageWithParagraph = (block) => (
     <div className="max-w-6xl mx-auto px-4 py-12">
-      <div className={`flex flex-col ${block.image_position === 'right' ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 items-center`}>
+      <div
+        className={`flex flex-col ${
+          block.image_position === "right"
+            ? "md:flex-row"
+            : "md:flex-row-reverse"
+        } gap-8 items-center`}
+      >
         <div className="flex-1">
           <h3 className="text-2xl font-semibold mb-4">{block.name_1}</h3>
           <p className="text-gray-600 leading-relaxed">{block.description_1}</p>
           {block.name_2 && (
             <>
-              <h3 className="text-2xl font-semibold mt-6 mb-4">{block.name_2}</h3>
-              <p className="text-gray-600 leading-relaxed">{block.description_2}</p>
+              <h3 className="text-2xl font-semibold mt-6 mb-4">
+                {block.name_2}
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                {block.description_2}
+              </p>
             </>
           )}
         </div>
         <div className="flex-1">
-          <img 
-            src={block.images.desktop} 
+          <img
+            src={block.images.desktop}
             alt={block.name_1}
             className="rounded-lg shadow-xl w-full h-auto"
           />
@@ -106,8 +122,14 @@ const Mbody = () => {
     <div className="max-w-6xl mx-auto px-4 py-12 bg-gray-50">
       <div className="grid md:grid-cols-4 gap-8">
         {block.content.map((item) => (
-          <div key={item.title} className="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow">
-            <div className="mb-4 h-16 flex items-center justify-center" dangerouslySetInnerHTML={{ __html: item.svg_text }} />
+          <div
+            key={item.title}
+            className="flex flex-col items-center text-center p-6 bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow"
+          >
+            <div
+              className="mb-4 h-16 flex items-center justify-center"
+              dangerouslySetInnerHTML={{ __html: item.svg_text }}
+            />
             <h4 className="text-lg font-semibold mb-2">{item.title}</h4>
             <p className="text-gray-600 text-sm">{item.description}</p>
           </div>
@@ -117,19 +139,31 @@ const Mbody = () => {
   );
 
   return (
-    <div style={{ height: '100vh', overflowY: 'auto' }}>
+    <div style={{ height: "100vh", overflowY: "auto" }}>
       <div className="container mx-auto py-8">
-        <h1 className="text-5xl font-bold text-center mb-12">{data?.MeasureYourSpacePageCms?.title}</h1>
-        
+        <h1 className="text-5xl font-bold text-center mb-12">
+          {data?.MeasureYourSpacePageCms?.title}
+        </h1>
+
         {contentBlocks.map((block, index) => {
           switch (block.block_type) {
-            case 'video_with_image_block':
-              return <div key={`video-${index}`}>{renderVideoBlock(block)}</div>;
-            case 'designers_block':
-              return <div key={`designers-${index}`}>{renderDesignersBlock(block)}</div>;
-            case 'image_with_paragraph':
-              return <div key={`image-para-${index}`}>{renderImageWithParagraph(block)}</div>;
-            case 'svg_block':
+            case "video_with_image_block":
+              return (
+                <div key={`video-${index}`}>{renderVideoBlock(block)}</div>
+              );
+            case "designers_block":
+              return (
+                <div key={`designers-${index}`}>
+                  {renderDesignersBlock(block)}
+                </div>
+              );
+            case "image_with_paragraph":
+              return (
+                <div key={`image-para-${index}`}>
+                  {renderImageWithParagraph(block)}
+                </div>
+              );
+            case "svg_block":
               return <div key={`svg-${index}`}>{renderSvgBlock(block)}</div>;
             default:
               return null;

@@ -14,8 +14,13 @@ import { ApolloProvider } from "@apollo/client";
 import client from "./ApolloApi/apolloClient.js";
 import FormWithQuery from "./ApolloApi/FormWithQuery.jsx";
 import Measure from './ApolloApi/Measure.jsx'
+import GoogleLoginComponent from "./Authentications/GoogleSignIn.jsx";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import GoogleSignIn from "./Authentications/GoogleSignIn.jsx";
 
 function App() {
+
+  const clientId = '459947292244-964qsu7q4mgac98vd1o5854j8i3blbjp.apps.googleusercontent.com';
   return (
     // <BrowserRouter>
     //   <Routes>
@@ -32,12 +37,21 @@ function App() {
     //     <Route path="/format" element={<FormatForm/>} />
     //   </Routes>
     // </BrowserRouter>
-    <div>
+    
 
-      <ApolloProvider client={client}>
-       <Measure/>
-      </ApolloProvider>
-    </div>
+
+
+  //   <ApolloProvider client={client}>
+  //   <Measure/>
+  //  </ApolloProvider> 
+
+      <GoogleOAuthProvider clientId={clientId}>
+      <div >
+        <GoogleSignIn/>
+      </div>
+    </GoogleOAuthProvider>
+    
+
   );
 }
 

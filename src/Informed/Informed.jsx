@@ -38,13 +38,13 @@ const InformedForm = () => {
     >
       <div
         className="p-4 border rounded shadow bg-white"
-        style={{
-          width: "100%",
-          maxWidth: "500px",
-          background: "rgb(162,225,16)",
-          background:
-          "linear-gradient(38deg, rgba(162,225,16,1) 0%, rgba(141,96,46,1) 0%, rgba(16,217,47,1) 62%, rgba(16,225,137,1) 73%, rgba(67,218,18,1) 79%, rgba(36,61,154,1) 97%, rgba(1,102,139,1) 100%)",
-        }}
+        // style={{
+        //   width: "100%",
+        //   maxWidth: "500px",
+        //   background: "rgb(162,225,16)",
+        //   background:
+        //   "linear-gradient(38deg, rgba(162,225,16,1) 0%, rgba(141,96,46,1) 0%, rgba(16,217,47,1) 62%, rgba(16,225,137,1) 73%, rgba(67,218,18,1) 79%, rgba(36,61,154,1) 97%, rgba(1,102,139,1) 100%)",
+        // }}
       >
         <h3 className="text-center mb-4">{t("formTitle")}</h3>
         <div className="text-end mb-3">
