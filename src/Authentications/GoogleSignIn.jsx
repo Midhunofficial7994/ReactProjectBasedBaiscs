@@ -3,10 +3,10 @@ import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { Card, CardContent, CardHeader, CardTitle } from './Card';
 import { Button } from './Button';
 import { LogOut } from "lucide-react";
-import useGoogleAuth from './useGoogleAuth'; // Import the custom hook
+import useGoogleAuth from './useGoogleAuth'; 
 
 const GoogleSignIn = () => {
-  const { user, handleLoginSuccess, handleLoginFailure } = useGoogleAuth(); // Use the custom hook
+  const { user, handleLoginSuccess, handleLoginFailure } = useGoogleAuth(); 
 
   const clientId = "459947292244-964qsu7q4mgac98vd1o5854j8i3blbjp.apps.googleusercontent.com";
 

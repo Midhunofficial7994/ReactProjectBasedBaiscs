@@ -17,6 +17,7 @@ import Measure from './ApolloApi/Measure.jsx'
 import GoogleLoginComponent from "./Authentications/GoogleSignIn.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import GoogleSignIn from "./Authentications/GoogleSignIn.jsx";
+import FacebookSignIn from "./Authentications/FaceBook.jsx";
 
 function App() {
 
@@ -45,13 +46,13 @@ function App() {
   //   <Measure/>
   //  </ApolloProvider> 
 
-      <GoogleOAuthProvider clientId={clientId}>
-      <div >
-        <GoogleSignIn/>
-      </div>
-    </GoogleOAuthProvider>
+    //   <GoogleOAuthProvider clientId={clientId}>
+    //   <div >
+    //     <GoogleSignIn/>
+    //   </div>
+    // </GoogleOAuthProvider>
     
-
+<div><FacebookSignIn/></div>
   );
 }
 

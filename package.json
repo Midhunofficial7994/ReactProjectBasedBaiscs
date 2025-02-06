@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.12.8",
+    "@greatsumini/react-facebook-login": "^3.4.0",
     "@react-oauth/google": "^0.12.1",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
@@ -32,7 +33,10 @@
     "react-intl": "^7.1.5",
     "react-router-dom": "^7.1.1",
     "react-select": "^5.9.0",
+    "react-social-login": "^3.4.17",
+    "react-social-login-buttons": "^4.1.0",
     "react-toastify": "^11.0.3",
+    "reactjs-social-login": "^2.6.3",
     "recoil": "^0.7.7",
     "swr": "^2.3.0",
     "three": "^0.172.0"

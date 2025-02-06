@@ -28,7 +28,6 @@ const useGoogleAuth = () => {
     console.error("Google login failed", error);
   };
 
-  // Check if there's a token already stored in localStorage
   React.useEffect(() => {
     const storedToken = localStorage.getItem("jwtToken");
     if (storedToken) {
