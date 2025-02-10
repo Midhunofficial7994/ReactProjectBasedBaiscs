@@ -59,6 +59,26 @@ const LocalStorage = () => {
           <Button variant="primary">Format</Button>
         </Link>
       </Row>
+      <Row className="justify-content-center my-3">
+        <Link to="/Measure Space">
+          <Button variant="warning">Measure Space</Button>
+        </Link>
+      </Row>
+      <Row className="justify-content-center my-3">
+        <Link to="/google">
+          <Button variant="success">Google SIgnIn</Button>
+        </Link>
+      </Row>
+      <Row className="justify-content-center my-3">
+        <Link to="/facebook">
+          <Button variant="primary">Facebook SignIn</Button>
+        </Link>
+      </Row>
+      <Row className="justify-content-center my-3">
+        <Link to="/antdesign">
+          <Button variant="primary">Antdesign</Button>
+        </Link>
+      </Row>
 
       <TaskForm handleAddTask={handleAddTask} tasks={tasks} />
 

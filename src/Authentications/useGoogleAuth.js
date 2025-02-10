@@ -4,7 +4,7 @@ import React from "react";
 
 const userAtom = atom({
   key: "user",
-  default: null,
+  default: null, 
 });
 
 const decodeJwt = (token) => {
@@ -15,35 +15,37 @@ const decodeJwt = (token) => {
 };
 
 const useGoogleAuth = () => {
-  const [user, setUser] = useRecoilState(userAtom);
+  const [user, setUser] = useRecoilState(userAtom); 
 
   const handleLoginSuccess = (response) => {
     const jwtToken = response.credential;
     const decodedToken = decodeJwt(jwtToken);
-    localStorage.setItem("jwtToken", jwtToken);
-    setUser(decodedToken);
+    localStorage.setItem("jwtToken", jwtToken); 
+    setUser(decodedToken); 
   };
 
   const handleLoginFailure = (error) => {
     console.error("Google login failed", error);
   };
 
+ 
   React.useEffect(() => {
     const storedToken = localStorage.getItem("jwtToken");
     if (storedToken) {
       try {
         const decodedToken = decodeJwt(storedToken);
-        setUser(decodedToken);
+        setUser(decodedToken); 
       } catch (error) {
         console.error("Error decoding stored token:", error);
       }
     }
-  }, []);
+  }, [setUser]); 
 
   return {
     user,
     handleLoginSuccess,
     handleLoginFailure,
+    setUser, 
   };
 };
 

@@ -1,14 +1,21 @@
 import React from "react";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import { Card, CardContent, CardHeader, CardTitle } from './Card';
-import { Button } from './Button';
+import { Card, CardContent, CardHeader, CardTitle } from "./Card";
+import { Button } from "./Button";
 import { LogOut } from "lucide-react";
-import useGoogleAuth from './useGoogleAuth'; 
+import useGoogleAuth from "./useGoogleAuth";
 
 const GoogleSignIn = () => {
-  const { user, handleLoginSuccess, handleLoginFailure } = useGoogleAuth(); 
+  const { user, handleLoginSuccess, handleLoginFailure, setUser } =
+    useGoogleAuth();
 
-  const clientId = "459947292244-964qsu7q4mgac98vd1o5854j8i3blbjp.apps.googleusercontent.com";
+  const clientId =
+    "459947292244-964qsu7q4mgac98vd1o5854j8i3blbjp.apps.googleusercontent.com";
+
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem("jwtToken");
+  };
 
   return (
     <GoogleOAuthProvider clientId={clientId}>
@@ -20,11 +27,11 @@ const GoogleSignIn = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            {!user ? (
-              <div className="flex flex-col items-center space-y-4">
-                <p className="text-gray-600 mb-4">
+            {!user ? (                                                            
+              <div className="flex flex-col items-center space-y-4"> 
+                <p className="text-gray-600 mb-4">   
                   Sign in with your Google account to continue
-                </p>
+                </p>                 
                 <div className="w-full flex justify-center">
                   <GoogleLogin
                     onSuccess={handleLoginSuccess}
@@ -49,14 +56,11 @@ const GoogleSignIn = () => {
                     {user.name}
                   </h3>
                   <p className="text-gray-600">{user.email}</p>
-                </div>
+                </div>          
                 <Button
                   variant="outline"
                   className="w-full flex items-center justify-center space-x-2"
-                  onClick={() => {
-                    setUser(null);
-                    localStorage.removeItem("jwtToken");
-                  }}
+                  onClick={handleLogout}
                 >
                   <LogOut className="w-4 h-4" />
                   <span>Sign Out</span>
