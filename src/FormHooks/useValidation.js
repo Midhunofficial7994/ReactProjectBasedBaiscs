@@ -3,7 +3,6 @@ import { useState } from "react";
 const useValidation = (formData) => {
   const [errors, setErrors] = useState({});
 
-  // Validators for each field
   const validators = {
     firstName: (value) => {
       if (!value || !/^[a-zA-Z\s]+$/.test(value)) {
