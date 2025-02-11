@@ -18,6 +18,8 @@ import GoogleSignIn from "./Authentications/GoogleSignIn.jsx";
 import FacebookSignIn from "./Authentications/FaceBook.jsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import AntDesign from "./Antdesign/AntDesign.jsx";
+import ChakraUi from './ChakraUi/ChakraUi.jsx'
+import ReactTable from "./ReactTables/ReactTables";
 
 function App() {
   const clientId = '459947292244-964qsu7q4mgac98vd1o5854j8i3blbjp.apps.googleusercontent.com';
@@ -25,7 +27,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Other routes */}
+
         <Route path="/" element={<LocalStorage />} />
         <Route path="/localStorage" element={<LocalStorage />} />
         <Route path="/database" element={<Database />} />
@@ -36,9 +38,12 @@ function App() {
         <Route path="/formValidationInformed" element={<Informed />} />
         <Route path="/urlSearch" element={<UrlSearch />} />
         <Route path="/antdesign" element={<AntDesign />} />
+        <Route path="/chakraui" element={<ChakraUi/>} />
+        <Route path="/reacttable" element={<ReactTable/>} />
      
         <Route path="/measure" element={<ApolloProvider client={client}><Measure /></ApolloProvider>} />
         <Route path="/google" element={
+          
           <GoogleOAuthProvider clientId={clientId}>
             <GoogleSignIn />         
           </GoogleOAuthProvider>
@@ -46,6 +51,10 @@ function App() {
         <Route path="/facebook" element={<FacebookSignIn />} />
       </Routes>
     </BrowserRouter>
+
+
+      
+   
   );
 }
 

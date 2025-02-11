@@ -79,6 +79,16 @@ const LocalStorage = () => {
           <Button variant="primary">Antdesign</Button>
         </Link>
       </Row>
+      <Row className="justify-content-center my-3">
+        <Link to="/chakraui">
+          <Button variant="primary">ChakraUI</Button>
+        </Link>
+      </Row>
+      <Row className="justify-content-center my-3">
+        <Link to="/reacttable">
+          <Button variant="danger">React tables</Button>
+        </Link>
+      </Row>
 
       <TaskForm handleAddTask={handleAddTask} tasks={tasks} />
 
