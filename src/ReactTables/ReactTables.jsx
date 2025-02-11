@@ -1,5 +1,7 @@
-import React, { useState, useMemo } from "react";
-import { Table as AntTable, Input, Button, Modal, Form, Pagination } from "antd";
+// Table.js
+import React from "react";
+import { Input, Table as AntTable, Button, Modal, Form, Pagination } from "antd";
+import useTableLogic from "./useTableLogic";
 import { useReactTable, getCoreRowModel, getPaginationRowModel } from "@tanstack/react-table";
 
 const initialData = Array.from({ length: 20 }, (_, index) => ({
@@ -10,30 +12,24 @@ const initialData = Array.from({ length: 20 }, (_, index) => ({
 }));
 
 const Table = () => {
-  const [data, setData] = useState(initialData);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [editingUser, setEditingUser] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [form] = Form.useForm();
+  const {
+    data,
+    searchTerm,
+    setSearchTerm,
+    pagination,
+    setPagination,
+    editingUser,
+    isModalOpen,
+    setIsModalOpen,
+    handleDelete,
+    handleEdit,
+    handleSave,
+  } = useTableLogic(initialData);
 
-  const [pagination, setPagination] = useState({
-    pageIndex: 0,
-    pageSize: 5,
-  });
-
-  
-  const filteredData = useMemo(() => 
-    data.filter((item) =>
-      Object.values(item)
-        .join(" ")
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase())
-    ), 
-    [data, searchTerm]  
-  );
+  const [form] = Form.useForm();  // Define form here
 
   const table = useReactTable({
-    data: filteredData, 
+    data,
     columns: [
       { accessorKey: "id", header: "ID" },
       { accessorKey: "name", header: "Name" },
@@ -56,36 +52,15 @@ const Table = () => {
     onPaginationChange: setPagination,
   });
 
-  const handleDelete = (id) => {
-    setData((prevData) => prevData.filter((user) => user.id !== id));
-  };
-
-  const handleEdit = (user) => {
-    setEditingUser(user);
-    form.setFieldsValue(user);
-    setIsModalOpen(true);
-  };
-
-  const handleSave = () => {
-    form.validateFields().then((values) => {
-      setData((prevData) =>
-        prevData.map((user) =>
-          user.id === editingUser.id ? { ...user, ...values } : user
-        )
-      );
-      setIsModalOpen(false);
-      setEditingUser(null);
-    });
-  };
-
   return (
     <div>
       <Input
         placeholder="Search users"
+        value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         style={{ marginBottom: 16, width: 300 }}
       />
-
+      
       <AntTable
         dataSource={table.getRowModel().rows.map((row) => ({ key: row.id, ...row.original }))}
         columns={table.options.columns.map((col) => ({
@@ -96,17 +71,15 @@ const Table = () => {
             ? (_, record) => col.cell({ row: { original: record } })
             : undefined,
         }))}
-        pagination={false} 
+        pagination={false}
       />
 
-      
       <Pagination
         current={table.getState().pagination.pageIndex + 1}
         pageSize={table.getState().pagination.pageSize}
-        total={filteredData.length}
+        total={data.length}
         onChange={(page, pageSize) => {
-          table.setPageIndex(page - 1);
-          table.setPageSize(pageSize);
+          setPagination({ pageIndex: page - 1, pageSize });
         }}
         showSizeChanger
         pageSizeOptions={[5, 10, 15, 20]}
@@ -114,11 +87,10 @@ const Table = () => {
         style={{ marginTop: 16, textAlign: "center" }}
       />
 
-
       <Modal
         title="Edit User"
         open={isModalOpen}
-        onOk={handleSave}
+        onOk={() => handleSave(form)}  // Pass form instance here
         onCancel={() => setIsModalOpen(false)}
       >
         <Form form={form} layout="vertical">
