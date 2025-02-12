@@ -1,4 +1,3 @@
-// useTableLogic.js
 import { useState, useMemo } from "react";
 
 const useTableLogic = (initialData) => {
@@ -10,6 +9,7 @@ const useTableLogic = (initialData) => {
     pageIndex: 0,
     pageSize: 5,
   });
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
 
   const filteredData = useMemo(() => 
     data.filter((item) =>
@@ -20,6 +20,21 @@ const useTableLogic = (initialData) => {
     ), 
     [data, searchTerm]  
   );
+
+  const sortedData = useMemo(() => {
+    if (!sortConfig.key) return filteredData;
+
+    const sorted = [...filteredData].sort((a, b) => {
+      const aValue = a[sortConfig.key];
+      const bValue = b[sortConfig.key];
+
+      if (aValue < bValue) return sortConfig.direction === 'asc' ? -1 : 1;
+      if (aValue > bValue) return sortConfig.direction === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    return sorted;
+  }, [filteredData, sortConfig]);
 
   const handleDelete = (id) => {
     setData((prevData) => prevData.filter((user) => user.id !== id));
@@ -42,8 +57,15 @@ const useTableLogic = (initialData) => {
     });
   };
 
+  const handleSort = (key) => {
+    setSortConfig((prevState) => {
+      const newDirection = prevState.key === key && prevState.direction === 'asc' ? 'desc' : 'asc';
+      return { key, direction: newDirection };
+    });
+  };
+
   return {
-    data: filteredData,
+    data: sortedData,
     searchTerm,
     setSearchTerm,
     pagination,
@@ -54,6 +76,7 @@ const useTableLogic = (initialData) => {
     handleDelete,
     handleEdit,
     handleSave,
+    handleSort,  
   };
 };
 
