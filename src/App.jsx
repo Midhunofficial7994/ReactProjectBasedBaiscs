@@ -12,7 +12,6 @@ import UrlSearch from "./UrlConnection/UrlSearch";
 import "./InformedComponents/i18.js";
 import { ApolloProvider } from "@apollo/client";
 import client from "./ApolloApi/apolloClient.js";
-import FormWithQuery from "./ApolloApi/FormWithQuery.jsx";
 import Measure from './ApolloApi/Measure.jsx';
 import GoogleSignIn from "./Authentications/GoogleSignIn.jsx";
 import FacebookSignIn from "./Authentications/FaceBook.jsx";
@@ -20,6 +19,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import AntDesign from "./Antdesign/AntDesign.jsx";
 import ChakraUi from './ChakraUi/ChakraUi.jsx'
 import ReactTable from "./ReactTables/ReactTables";
+import GoogleMaps from "./GoogleMaps.jsx/GoogleMaps";
 
 function App() {
   const clientId = '459947292244-964qsu7q4mgac98vd1o5854j8i3blbjp.apps.googleusercontent.com';
@@ -40,7 +40,8 @@ function App() {
         <Route path="/antdesign" element={<AntDesign />} />
         <Route path="/chakraui" element={<ChakraUi/>} />
         <Route path="/reacttable" element={<ReactTable/>} />
-     
+        <Route path="/googlemaps" element={<GoogleMaps/>} />
+        
         <Route path="/measure" element={<ApolloProvider client={client}><Measure /></ApolloProvider>} />
         <Route path="/google" element={
           

@@ -89,6 +89,11 @@ const LocalStorage = () => {
           <Button variant="danger">React tables</Button>
         </Link>
       </Row>
+      <Row className="justify-content-center my-3">
+        <Link to="/googlemaps">
+          <Button variant="danger">Google Maps</Button>
+        </Link>
+      </Row>
 
       <TaskForm handleAddTask={handleAddTask} tasks={tasks} />
 

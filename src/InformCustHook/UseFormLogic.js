@@ -13,13 +13,13 @@ const pincodeValidator = (value) => {
     ? "Please enter a valid 6-digit pincode."
     : undefined;
 };
-
 const validatePhone = (value) => {
   const phonePattern = /^\+91\s?\d{3}-\d{3}-\d{4}$/;
   return phonePattern.test(value)
     ? undefined
     : "Invalid phone number. Please use the format +91 ###-###-####.";
 };
+
 
 const UseFormLogic = () => {
   const [file, setFile] = useState(null);

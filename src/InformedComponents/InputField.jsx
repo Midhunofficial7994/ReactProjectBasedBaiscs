@@ -1,6 +1,6 @@
 import { useField } from "informed";
 
-const InputField = (props) => {
+const   InputField = (props) => {
   const { fieldState, fieldApi, render, ref, userProps } = useField(props);
 
   const { value, error, showError } = fieldState;

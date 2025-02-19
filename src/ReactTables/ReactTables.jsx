@@ -57,7 +57,7 @@ const Table = () => {
           <div style={{ display: "flex", gap: "8px" }}>
             <Button type="link" onClick={() => handleEdit(row.original)} style={{ color: "#1890ff" }}>
               Edit
-            </Button>
+            </Button> 
             <Button type="link" danger onClick={() => handleDelete(row.original.id)}>
               Delete
             </Button>

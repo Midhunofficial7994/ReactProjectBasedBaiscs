@@ -11,7 +11,7 @@ const InformedForm = () => {
   const {
     handleSubmit,
     countryOptions,
-    nameValidator,
+     nameValidator,
     pincodeValidator,
     validatePhone,
     file, 
