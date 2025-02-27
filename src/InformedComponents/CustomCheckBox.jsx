@@ -34,7 +34,7 @@ const CustomCheckbox = ({ name, options = [] }) => {
             onChange={handleChange}
             className="form-check-input"
           />
-          <label className="form-check-label" htmlFor={option.value}>
+          <label className="form-check-label" htmlFor={option.value}>                     
             {t(option.label)}
           </label>
         </div>

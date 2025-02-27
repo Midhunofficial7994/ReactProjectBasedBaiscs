@@ -4,17 +4,17 @@ import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 const containerStyle = {
   width: "100%",
   height: "500px",
-};
+};                           
 
 const center = {
-  lat: 37.7749, // Default center (San Francisco)
+  lat: 37.7749, 
   lng: -122.4194,
-};
+};              
 
 const locations = [
-  { lat: 37.7749, lng: -122.4194 }, // San Francisco
-  { lat: 34.0522, lng: -118.2437 }, // Los Angeles
-  { lat: 40.7128, lng: -74.006 },   // New York
+  { lat: 37.7749, lng: -122.4194 }, 
+  { lat: 34.0522, lng: -118.2437 }, 
+  { lat: 40.7128, lng: -74.006 },   
 ];
 
 const GoogleMapComponent = () => {

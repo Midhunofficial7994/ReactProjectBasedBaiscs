@@ -50,7 +50,7 @@ const useValidation = (formData) => {
     },
   };
 
-  // Validate individual field
+  
   const handleFieldValidation = (name, value) => {
     if (validators[name]) {
       const error = validators[name](value);

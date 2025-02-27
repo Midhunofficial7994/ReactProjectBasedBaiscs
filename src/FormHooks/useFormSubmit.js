@@ -5,10 +5,10 @@ const useFormSubmit = (formData, validateForm, resetForm) => {
         console.log("Form data submitted: ", formData);
         resetForm();
       }
-    };
+    };                  
   
     return { handleSubmit };
   };
   
-  export default useFormSubmit;
+  export default useFormSubmit;    
   
