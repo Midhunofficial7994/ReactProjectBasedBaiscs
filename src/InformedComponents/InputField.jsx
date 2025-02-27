@@ -24,7 +24,7 @@ const   InputField = (props) => {
         setError(""); 
       }
     }
-    if (showError) {
+    if (showError) {  
       setError(""); 
     }
   };
